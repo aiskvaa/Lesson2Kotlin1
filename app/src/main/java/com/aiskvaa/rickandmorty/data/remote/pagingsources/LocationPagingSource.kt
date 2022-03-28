@@ -15,8 +15,9 @@ class LocationPagingSource(private val service: LocationsApiService) :
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, RickAndMortyLocation> {
         val page = params.key ?: 1
          try {
-            val response = service.fetchLocation(page)
-            val nextPageNumber = Uri.parse(response.info.next).getQueryParameter("page")!!.toInt()
+             val response = service.fetchLocation(page)
+             val nextPageNumber = if (response.info.next == null){null}
+             else Uri.parse(response.info.next).getQueryParameter("page")!!.toInt()
              return LoadResult.Page(
                 data = response.results,
                 prevKey = null,

@@ -16,7 +16,8 @@ class EpisodesPAgingSource(private val service: EpisodesApiService) :
         val page = params.key ?: 1
         try {
             val response = service.fetchEpisodes(page)
-            val nextPageNumber =Uri.parse(response.info.next).getQueryParameter("page")!!.toInt()
+            val nextPageNumber = if (response.info.next == null){null}
+            else Uri.parse(response.info.next).getQueryParameter("page")!!.toInt()
             return LoadResult.Page(
                 data = response.results,
                 prevKey = null,

@@ -2,7 +2,7 @@ package com.aiskvaa.rickandmorty.data.remote.dtos.character
 
 import com.google.gson.annotations.SerializedName
 
-data class RickAndMortyCharacter(
+data class RickAndMortyCharacter (
     @SerializedName("id")
     val id: Int,
     @SerializedName("name")
@@ -18,7 +18,6 @@ data class RickAndMortyCharacter(
     @SerializedName("origin")
     val origin: Origin,
     @SerializedName("location")
-
     val location: Location,
     @SerializedName("image")
     val image: String,

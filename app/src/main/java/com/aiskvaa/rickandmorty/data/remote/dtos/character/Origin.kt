@@ -1,6 +1,5 @@
 package com.aiskvaa.rickandmorty.data.remote.dtos.character
 
-
 import com.google.gson.annotations.SerializedName
 
 data class Origin(

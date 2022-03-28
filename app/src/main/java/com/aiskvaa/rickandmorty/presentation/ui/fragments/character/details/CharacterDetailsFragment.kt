@@ -22,38 +22,29 @@ class CharacterDetailsFragment :
     override val viewModel: CharacterDetailsViewModel by viewModels()
     private val args: CharacterDetailsFragmentArgs by navArgs()
 
-
     override fun setupViews() {
     }
-
 
     override fun setupObserver() {
         subscribeToCharacters()
     }
-
 
     private fun subscribeToCharacters() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.fetchSingleCharacter(args.characterId).observe(viewLifecycleOwner) {
                 when (it) {
                     is Resource.Loading -> {
-                        Log.e("GayPop", "Loading ")
+                        Log.e("Anime", "Loading ")
                     }
-
                     is Resource.Error -> {
-                        Log.e("GayPop", it.message.toString())
-
-
+                        Log.e("Anime", it.message.toString())
                     }
                     is Resource.Success -> {
-                        binding.tvCharacter.text = it.data?.name
-                        it.data?.image?.let { it1 -> binding.imCharacter.setImage(it1) }
+                      //  binding.tvCharacter.text = it.data?.name
+                        //it.data?.image?.let { data -> binding.imCharacter.setImage(data)
+                        }
                     }
                 }
             }
-
         }
     }
-
-
-}

@@ -10,6 +10,7 @@ import com.aiskvaa.rickandmorty.presentation.ui.adapters.EpisodesAdapter
 import com.example.lesson2kotlin2.R
 import com.example.lesson2kotlin2.databinding.FragmentEpisodesBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -17,43 +18,28 @@ class EpisodesFragment :
     BaseFragment<FragmentEpisodesBinding, EpisodeViewModel>(R.layout.fragment_episodes) {
     override val binding by viewBinding(FragmentEpisodesBinding::bind)
     override val viewModel: EpisodeViewModel by viewModels()
-    private val adapter = EpisodesAdapter()
+    private val episodeAdapter = EpisodesAdapter()
     override fun setupViews() {
         setupAdapter()
 
     }
 
-
     private fun setupAdapter() {
-        binding.recyclerview.adapter = adapter
+        binding.recyclerview.adapter = episodeAdapter
     }
-
 
     override fun setupObserver() {
         subscribeToEpisodes()
     }
 
     private fun subscribeToEpisodes() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.fetchEpisodes().observe(viewLifecycleOwner) {
-                when (it) {
-                    is Resource.Loading -> {
-                        Log.e("anime", "Loading ")
-                    }
-
-                    is Resource.Error -> {
-                        Log.e("anime", it.message.toString())
-
-
-                    }
-                    is Resource.Success -> {
-                        it.data?.results?.let { it1 -> adapter.setList(it1) }
-                    }
-                }
+        lifecycleScope.launch {
+            viewModel.fetchEpisodes().collectLatest {
+                episodeAdapter.submitData(it)
             }
-
         }
 
     }
+
 
 }

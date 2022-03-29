@@ -11,7 +11,6 @@ import com.example.lesson2kotlin2.R
 import com.example.lesson2kotlin2.databinding.ItemCharactersBinding
 
 class CharactersAdapter (
-    private val onItemClick: (data: RickAndMortyCharacter) -> Unit
 ) : PagingDataAdapter<RickAndMortyCharacter, CharactersAdapter.CharactersViewHolder>(
     CharacterComparator
 ) {
@@ -51,14 +50,8 @@ class CharactersAdapter (
                     binding.imStatus.setImageResource(R.drawable.unknown_status)
                 }
             }
-
-
-            binding.root.setOnClickListener {
-                getItem(absoluteAdapterPosition)?.let { model -> onItemClick(model) }
-            }
         }
     }
-
 }
 
 object  CharacterComparator : DiffUtil.ItemCallback<RickAndMortyCharacter>() {

@@ -4,8 +4,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.aiskvaa.rickandmorty.base.BaseFragment
-import com.aiskvaa.rickandmorty.data.remote.dtos.character.RickAndMortyCharacter
 import com.aiskvaa.rickandmorty.presentation.ui.adapters.CharactersAdapter
+import com.aiskvaa.rickandmorty.presentation.ui.adapters.ProgressBarLoader
 import com.example.lesson2kotlin2.R
 import com.example.lesson2kotlin2.databinding.FragmentCharactersBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -18,14 +18,16 @@ class CharactersFragment : BaseFragment<FragmentCharactersBinding, CharacterView
 ) {
     override val binding by viewBinding(FragmentCharactersBinding::bind)
     override val viewModel: CharacterViewModel by viewModels()
-    private val characterAdapter = CharactersAdapter(this::onItemClick)
+    private val characterAdapter = CharactersAdapter()
 
     override fun setupViews() {
         setupAdapter()
     }
 
     private fun setupAdapter() {
-        binding.recyclerview.adapter = characterAdapter
+        binding.recyclerview.adapter = characterAdapter.withLoadStateFooter(
+            footer = ProgressBarLoader {characterAdapter.retry()}
+        )
     }
 
     override fun setupObserver() {
@@ -39,6 +41,5 @@ class CharactersFragment : BaseFragment<FragmentCharactersBinding, CharacterView
             }
         }
     }
-    private fun onItemClick(description: RickAndMortyCharacter) {}
 
 }

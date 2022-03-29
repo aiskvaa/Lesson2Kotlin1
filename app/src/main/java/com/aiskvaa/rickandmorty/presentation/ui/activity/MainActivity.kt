@@ -24,12 +24,6 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
         NavigationUI.setupWithNavController(binding.bottomNavigationView, navController)
-        val appBarConfiguration = AppBarConfiguration.Builder(
-            R.id.charactersFragment,
-            R.id.locationsFragment,
-            R.id.episodesFragment
-        ).build()
-        NavigationUI.setupWithNavController(binding.toolbar, navController, appBarConfiguration)
 
 
     }

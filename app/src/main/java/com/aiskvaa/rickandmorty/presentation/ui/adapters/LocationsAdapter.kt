@@ -23,7 +23,6 @@ class LocationsAdapter  :
             )
         )
 
-
     override fun onBindViewHolder(holder: LocationsViewHolder, position: Int) {
         getItem(position)?.let { holder.onBind(it) }
     }
@@ -34,10 +33,7 @@ class LocationsAdapter  :
             binding.tvName.text = rickAndMortyLocation.name
             binding.tvType.text = rickAndMortyLocation.type
             binding.tvDimension.text = rickAndMortyLocation.dimension
-
         }
-
-
     }
 }
 

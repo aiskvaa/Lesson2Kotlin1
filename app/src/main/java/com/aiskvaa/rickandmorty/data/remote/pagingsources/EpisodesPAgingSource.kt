@@ -8,12 +8,14 @@ import com.aiskvaa.rickandmorty.data.remote.dtos.episode.RickAndMortyEpisode
 import retrofit2.HttpException
 import java.io.IOException
 
+ const val EPISODES_KEY = 1
+
 class EpisodesPAgingSource(private val service: EpisodesApiService) :
     PagingSource<Int, RickAndMortyEpisode>() {
 
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, RickAndMortyEpisode> {
-        val page = params.key ?: 1
+        val page = params.key ?: EPISODES_KEY
         try {
             val response = service.fetchEpisodes(page)
             val nextPageNumber = if (response.info.next == null){null}

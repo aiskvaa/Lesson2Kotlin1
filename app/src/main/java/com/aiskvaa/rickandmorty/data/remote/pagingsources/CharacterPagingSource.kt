@@ -8,12 +8,14 @@ import com.aiskvaa.rickandmorty.data.remote.dtos.character.RickAndMortyCharacter
 import retrofit2.HttpException
 import java.io.IOException
 
+const val CHARACTER_KEY = 1
+
 class CharacterPagingSource(private val service: CharactersApiService) :
     PagingSource<Int, RickAndMortyCharacter>() {
 
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, RickAndMortyCharacter> {
-        val page = params.key ?: 1
+        val page = params.key ?: CHARACTER_KEY
         try {
             val response = service.fetchCharacters(page)
             val nextPageNumber = if (response.info.next == null){null}

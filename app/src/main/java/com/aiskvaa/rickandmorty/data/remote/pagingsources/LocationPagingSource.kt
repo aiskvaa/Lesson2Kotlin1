@@ -8,12 +8,13 @@ import com.aiskvaa.rickandmorty.data.remote.dtos.location.RickAndMortyLocation
 import retrofit2.HttpException
 import java.io.IOException
 
+const val LOCATION_KEY = 1
 class LocationPagingSource(private val service: LocationsApiService) :
     PagingSource<Int, RickAndMortyLocation>() {
 
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, RickAndMortyLocation> {
-        val page = params.key ?: 1
+        val page = params.key ?: LOCATION_KEY
          try {
              val response = service.fetchLocation(page)
              val nextPageNumber = if (response.info.next == null){null}

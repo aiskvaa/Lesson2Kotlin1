@@ -10,6 +10,4 @@ class CharacterDetailsViewModel @Inject constructor(
     private val characterRepository: CharacterRepository
 ) : BaseViewModel() {
 
-    fun fetchSingleCharacter(id: Int) =
-        characterRepository.fetchSingleCharacter(id)
 }

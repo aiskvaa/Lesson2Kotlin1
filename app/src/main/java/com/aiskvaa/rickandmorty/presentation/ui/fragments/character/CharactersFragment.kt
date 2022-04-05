@@ -1,16 +1,18 @@
 package com.aiskvaa.rickandmorty.presentation.ui.fragments.character
 
+import android.content.Context.CONNECTIVITY_SERVICE
+import android.net.ConnectivityManager
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.aiskvaa.rickandmorty.base.BaseFragment
+import com.aiskvaa.rickandmorty.common.extensions.submitData
+import com.aiskvaa.rickandmorty.pagination.PaginationScrollerListener
 import com.aiskvaa.rickandmorty.presentation.ui.adapters.CharactersAdapter
-import com.aiskvaa.rickandmorty.presentation.ui.adapters.ProgressBarLoader
 import com.example.lesson2kotlin2.R
 import com.example.lesson2kotlin2.databinding.FragmentCharactersBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class CharactersFragment : BaseFragment<FragmentCharactersBinding, CharacterViewModel>(
@@ -24,22 +26,53 @@ class CharactersFragment : BaseFragment<FragmentCharactersBinding, CharacterView
         setupAdapter()
     }
 
-    private fun setupAdapter() {
-        binding.recyclerview.adapter = characterAdapter.withLoadStateFooter(
-            footer = ProgressBarLoader {characterAdapter.retry()}
-        )
-    }
-
     override fun setupObserver() {
         subscribeToCharacters()
+        subscribeToCharactersLocale()
+
+    }
+
+    private fun setupAdapter() = with(binding.recyclerview) {
+        val linearLayoutManager = LinearLayoutManager(context)
+        layoutManager = linearLayoutManager
+        adapter = characterAdapter
+
+        addOnScrollListener(object :
+            PaginationScrollerListener(linearLayoutManager, {
+                if (isOnline()) viewModel.fetchCharacter() else null
+            }) {
+            override fun isLoading() = viewModel.isLoading
+        })
     }
 
     private fun subscribeToCharacters() {
-        lifecycleScope.launch {
-            viewModel.fetchCharacters().collectLatest {
-                characterAdapter.submitData(it)
-            }
+        viewModel.characterState.observe(viewLifecycleOwner) {
+            characterAdapter.submitData(it.results)
         }
     }
 
+    private fun subscribeToCharactersLocale() {
+        viewModel.characterLocaleState.observe(viewLifecycleOwner) {
+            characterAdapter.submitData(it)
+        }
+    }
+
+    override fun setupRequest() {
+        if (viewModel.characterState.value == null && isOnline()) viewModel.fetchCharacter()
+        else viewModel.getCharacters()
+    }
+
+    fun isOnline(): Boolean {
+        val cm = requireActivity().getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager
+        val netInfo = cm.activeNetworkInfo
+        return netInfo != null && netInfo.isConnectedOrConnecting
+    }
+
+    private fun onItemClick(id: Int) {
+        findNavController().navigate(
+            CharactersFragmentDirections.actionCharactersFragmentToCharacterDetailsFragment(
+                id
+            )
+        )
+    }
 }

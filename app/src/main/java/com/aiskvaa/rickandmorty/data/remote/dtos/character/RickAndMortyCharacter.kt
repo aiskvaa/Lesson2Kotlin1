@@ -1,10 +1,15 @@
 package com.aiskvaa.rickandmorty.data.remote.dtos.character
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import com.aiskvaa.rickandmorty.base.BaseDiffModel
 import com.google.gson.annotations.SerializedName
 
+@Entity
 data class RickAndMortyCharacter (
+    @PrimaryKey(autoGenerate = true)
     @SerializedName("id")
-    val id: Int,
+   override val id: Int,
     @SerializedName("name")
     val name: String,
     @SerializedName("status")
@@ -15,10 +20,6 @@ data class RickAndMortyCharacter (
     val type: String,
     @SerializedName("gender")
     val gender: String,
-    @SerializedName("origin")
-    val origin: Origin,
-    @SerializedName("location")
-    val location: Location,
     @SerializedName("image")
     val image: String,
-)
+) : BaseDiffModel

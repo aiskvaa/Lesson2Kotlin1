@@ -3,7 +3,6 @@ package com.aiskvaa.rickandmorty.presentation.ui.activity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import com.example.lesson2kotlin2.R
 import com.example.lesson2kotlin2.databinding.ActivityMainBinding

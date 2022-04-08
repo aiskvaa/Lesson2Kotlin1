@@ -8,10 +8,9 @@ import com.aiskvaa.rickandmorty.data.remote.dtos.character.RickAndMortyCharacter
 
 @Dao
 interface CharacterDao {
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(vararg character: RickAndMortyCharacter)
+    suspend fun insertAll(vararg character:RickAndMortyCharacter)
 
-    @Query("SELECT * FROM rickandmortycharacter")
-    suspend fun getAll(): List<RickAndMortyCharacter>
+    @Query("SELECT * FROM rickandmortycharacter" )
+    suspend fun getAll() : List<RickAndMortyCharacter>
 }

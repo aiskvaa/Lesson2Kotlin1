@@ -6,11 +6,8 @@ import com.aiskvaa.rickandmorty.base.BaseViewModel
 import com.aiskvaa.rickandmorty.data.remote.dtos.RickAndMortyResponse
 import com.aiskvaa.rickandmorty.data.remote.dtos.location.RickAndMortyLocation
 import com.aiskvaa.rickandmorty.data.repositories.LocationsRepository
-import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 
-@HiltViewModel
-class LocationViewModel @Inject constructor(
+class LocationViewModel  constructor(
     private val repository: LocationsRepository
 ) : BaseViewModel() {
 

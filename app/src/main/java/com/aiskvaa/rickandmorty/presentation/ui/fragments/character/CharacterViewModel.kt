@@ -6,11 +6,8 @@ import com.aiskvaa.rickandmorty.base.BaseViewModel
 import com.aiskvaa.rickandmorty.data.remote.dtos.RickAndMortyResponse
 import com.aiskvaa.rickandmorty.data.remote.dtos.character.RickAndMortyCharacter
 import com.aiskvaa.rickandmorty.data.repositories.CharacterRepository
-import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 
-@HiltViewModel
-class CharacterViewModel @Inject constructor(
+class CharacterViewModel  constructor(
     private val repository: CharacterRepository,
 ) : BaseViewModel() {
 

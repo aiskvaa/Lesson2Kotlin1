@@ -12,7 +12,6 @@ interface EpisodeDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAllEpisode(vararg episode: RickAndMortyEpisode)
 
-    @Query("SELECT * FROM rickandmortyepisode")
-    suspend fun getAllEpisode(): List<RickAndMortyEpisode>
-
+    @Query("SELECT * FROM rickandmortyepisode" )
+    suspend fun getAll() : List<RickAndMortyEpisode>
 }

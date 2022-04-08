@@ -2,7 +2,6 @@ package com.aiskvaa.rickandmorty.presentation.ui.fragments.location
 
 import android.content.Context
 import android.net.ConnectivityManager
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.aiskvaa.rickandmorty.base.BaseFragment
@@ -11,14 +10,13 @@ import com.aiskvaa.rickandmorty.pagination.PaginationScrollerListener
 import com.aiskvaa.rickandmorty.presentation.ui.adapters.LocationsAdapter
 import com.example.lesson2kotlin2.R
 import com.example.lesson2kotlin2.databinding.FragmentLocationsBinding
-import dagger.hilt.android.AndroidEntryPoint
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-@AndroidEntryPoint
 class LocationsFragment : BaseFragment<FragmentLocationsBinding, LocationViewModel>(
     R.layout.fragment_locations
 ) {
     override val binding by viewBinding(FragmentLocationsBinding::bind)
-    override val viewModel: LocationViewModel by viewModels()
+    override val viewModel: LocationViewModel by viewModel()
     private val locationAdapter = LocationsAdapter()
 
     override fun setupObserver() {

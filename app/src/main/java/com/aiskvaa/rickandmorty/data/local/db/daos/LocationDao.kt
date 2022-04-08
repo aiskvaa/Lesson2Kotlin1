@@ -12,7 +12,6 @@ interface LocationDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAllLocation(vararg location: RickAndMortyLocation)
 
-
-    @Query("SELECT * FROM rickandmortylocation")
-    suspend fun getAllLocation(): List<RickAndMortyLocation>
+    @Query("SELECT * FROM rickandmortylocation" )
+    suspend fun getAllLocation() : List<RickAndMortyLocation>
 }

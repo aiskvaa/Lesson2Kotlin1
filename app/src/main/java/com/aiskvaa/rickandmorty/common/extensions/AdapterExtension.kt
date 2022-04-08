@@ -1,3 +1,4 @@
+
 package com.aiskvaa.rickandmorty.common.extensions
 
 import androidx.recyclerview.widget.ListAdapter

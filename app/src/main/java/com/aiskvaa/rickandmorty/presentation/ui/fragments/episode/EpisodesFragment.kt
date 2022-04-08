@@ -2,7 +2,6 @@ package com.aiskvaa.rickandmorty.presentation.ui.fragments.episode
 
 import android.content.Context
 import android.net.ConnectivityManager
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.aiskvaa.rickandmorty.base.BaseFragment
@@ -11,15 +10,14 @@ import com.aiskvaa.rickandmorty.pagination.PaginationScrollerListener
 import com.aiskvaa.rickandmorty.presentation.ui.adapters.EpisodesAdapter
 import com.example.lesson2kotlin2.R
 import com.example.lesson2kotlin2.databinding.FragmentEpisodesBinding
-import dagger.hilt.android.AndroidEntryPoint
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-@AndroidEntryPoint
 class EpisodesFragment : BaseFragment<FragmentEpisodesBinding, EpisodeViewModel>(
     R.layout.fragment_episodes
 ) {
 
     override val binding by viewBinding(FragmentEpisodesBinding::bind)
-    override val viewModel: EpisodeViewModel by viewModels()
+    override val viewModel: EpisodeViewModel by viewModel()
     private val episodesAdapter = EpisodesAdapter()
 
     override fun setupViews() {

@@ -2,7 +2,6 @@ package com.aiskvaa.rickandmorty.presentation.ui.fragments.character
 
 import android.content.Context.CONNECTIVITY_SERVICE
 import android.net.ConnectivityManager
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -12,14 +11,13 @@ import com.aiskvaa.rickandmorty.pagination.PaginationScrollerListener
 import com.aiskvaa.rickandmorty.presentation.ui.adapters.CharactersAdapter
 import com.example.lesson2kotlin2.R
 import com.example.lesson2kotlin2.databinding.FragmentCharactersBinding
-import dagger.hilt.android.AndroidEntryPoint
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-@AndroidEntryPoint
 class CharactersFragment : BaseFragment<FragmentCharactersBinding, CharacterViewModel>(
     R.layout.fragment_characters
 ) {
     override val binding by viewBinding(FragmentCharactersBinding::bind)
-    override val viewModel: CharacterViewModel by viewModels()
+    override val viewModel: CharacterViewModel by viewModel()
     private val characterAdapter = CharactersAdapter()
 
     override fun setupViews() {

@@ -6,9 +6,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.aiskvaa.rickandmorty.base.BaseFragment
 import com.example.lesson2kotlin2.R
 import com.example.lesson2kotlin2.databinding.FragmentCharacterDetailsBinding
-import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
 class CharacterDetailsFragment :
     BaseFragment<FragmentCharacterDetailsBinding, CharacterDetailsViewModel>(
         R.layout.fragment_character_details
